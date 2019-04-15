@@ -20,7 +20,7 @@
 using hlda::GibbsSampler;
 using hlda::GibbsState;
 
-#define MAX_ITERATIONS 20000
+#define MAX_ITERATIONS 10000
 #define SAVE_ITERATIONS (MAX_ITERATIONS >> 2)
 
 int main(int argc, char** argv) {

@@ -211,8 +211,8 @@ void CorpusUtils::UpdateGemScale(Corpus* corpus) {
       }
     }
   }
-//  cout << "Gem scale: (1) score_change: " << score_change <<
-//        " (2) new_gem_scale: " << corpus->getGemScale() << endl;
+  cout << "Gem scale: (1) score_change: " << score_change <<
+        " (2) new_gem_scale: " << corpus->getGemScale() << endl;
 }
 
 void CorpusUtils::UpdateGemMean(Corpus* corpus) {
@@ -239,8 +239,8 @@ void CorpusUtils::UpdateGemMean(Corpus* corpus) {
       }
     }
   }
-//  cout << "Gem mean: (1) score_change: " << score_change <<
-//      " (2) new_gem_mean: " << corpus->getGemMean() << endl;
+  cout << "Gem mean: (1) score_change: " << score_change <<
+      " (2) new_gem_mean: " << corpus->getGemMean() << endl;
 }
 
 void CorpusUtils::PermuteDocuments(Corpus* corpus) {
