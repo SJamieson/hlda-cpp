@@ -14,6 +14,8 @@
 
 
 #include <math.h>
+#include <fstream>
+#include <queue>
 
 #include "tree.h"
 
@@ -68,6 +70,44 @@ Tree& Tree::operator =(const Tree& from) {
   root_topic_ = new Topic(*from.root_topic_, NULL, this);
 
   return *this;
+}
+
+void Tree::save(string filename) const
+{
+    auto id = 0u;
+    std::map<Topic*, decltype (id)> idMap;
+    auto const getId = [&id, &idMap](Topic* topic){
+        decltype(id) topic_id;
+        if (idMap.find(topic) != idMap.end()) {
+            topic_id = idMap.at(topic);
+        } else {
+            topic_id = ++id;
+            idMap[topic] = topic_id;
+        }
+        return topic_id;
+    };
+
+    std::ofstream writer;
+    writer.open(filename);
+    std::queue<Topic*> topicQueue;
+    topicQueue.push(this->root_topic_);
+    while (!topicQueue.empty()) {
+        auto const& topic = topicQueue.front();
+        auto const topic_id = getId(topic);
+        writer << std::to_string(topic_id) << " ";
+        auto const num_children = topic->getChildren();
+        for (auto i = 0; i < num_children; i++) {
+            Topic* child = topic->getMutableChild(i);
+            topicQueue.push(child);
+            writer << std::to_string(getId(child)) << " ";
+        }
+        auto const num_words = topic->getCorpusWordNo();
+        for (auto i = 0; i < num_words; i++) {
+            writer << std::to_string(i) << ":" << std::to_string(topic->getWordCount(i)) << " ";
+        }
+        writer << std::endl;
+        topicQueue.pop();
+    }
 }
 
 Tree::~Tree() {

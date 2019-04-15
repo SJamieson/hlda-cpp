@@ -54,6 +54,8 @@ class Tree {
   double getScalingShape() const { return scaling_shape_; }
   double getScalingScale() const { return scaling_scale_; }
 
+  void save(std::string filename) const;
+
  private:
   // Depth of the tree.
   int depth_;

@@ -38,6 +38,7 @@ int main(int argc, char** argv) {
       hlda::GibbsSampler::IterateGibbsState(gibbs_state);
     }
 
+    gibbs_state->getMutableTree()->save("model.txt");
     delete gibbs_state;
   } else {
     cout << "Arguments: "

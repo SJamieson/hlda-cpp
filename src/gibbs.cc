@@ -25,7 +25,7 @@
 #define DEFAULT_SHUFFLE_LAG 100
 #define DEFAULT_LEVEL_LAG -1
 #define DEFAULT_SAMPLE_GAM 0
-#define BUF_SIZE 100
+#define BUF_SIZE 1000
 
 namespace hlda {
 
