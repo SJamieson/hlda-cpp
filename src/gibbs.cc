@@ -93,10 +93,10 @@ double GibbsState::computeGibbsScore() {
   eta_score_ = TopicUtils::EtaScore((&tree_)->getMutableRootTopic());
   gamma_score_ = TopicUtils::GammaScore((&tree_)->getMutableRootTopic());
   score_ = gem_score_ + eta_score_ + gamma_score_;
-  cout << "Gem_score: " << gem_score_ << endl;
-  cout << "Eta_score: " << eta_score_ << endl;
-  cout << "Gamma_score: " << gamma_score_ << endl;
-  cout << "Score: " << score_ << endl;
+//  cout << "Gem_score: " << gem_score_ << endl;
+//  cout << "Eta_score: " << eta_score_ << endl;
+//  cout << "Gamma_score: " << gamma_score_ << endl;
+//  cout << "Score: " << score_ << endl;
 
   // Update the maximum score if necessary.
   if (score_ > max_score_ || iteration_ == 0) {
@@ -261,7 +261,7 @@ GibbsState* GibbsSampler::InitGibbsStateRep(
   return best_gibbs_state;
 }
 
-void GibbsSampler::IterateGibbsState(GibbsState* gibbs_state) {
+void GibbsSampler::IterateGibbsState(GibbsState* gibbs_state, bool verbose) {
   assert(gibbs_state != NULL);
 
   Tree* tree = gibbs_state->getMutableTree();
@@ -324,7 +324,7 @@ void GibbsSampler::IterateGibbsState(GibbsState* gibbs_state) {
   // Compute the Gibbs score with the new parameter values.
   double gibbs_score = gibbs_state->computeGibbsScore();
 
-  cout << "Gibbs score at iteration "
+  if (verbose) cout << "Gibbs score at iteration "
        << gibbs_state->getIteration() << " = " << gibbs_score << endl;
 }
 

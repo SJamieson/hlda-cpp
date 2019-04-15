@@ -20,7 +20,8 @@
 using hlda::GibbsSampler;
 using hlda::GibbsState;
 
-#define MAX_ITERATIONS 10000
+#define MAX_ITERATIONS 20000
+#define SAVE_ITERATIONS (MAX_ITERATIONS >> 2)
 
 int main(int argc, char** argv) {
   if (argc == 3) {
@@ -34,11 +35,15 @@ int main(int argc, char** argv) {
     hlda::GibbsState* gibbs_state = hlda::GibbsSampler::InitGibbsStateRep(
         filename_corpus, filename_settings, rng_seed);
 
+    std::string const model_name = "model" + std::to_string(rng_seed);
     for (int i = 0; i < MAX_ITERATIONS; i++) {
       hlda::GibbsSampler::IterateGibbsState(gibbs_state);
+      if (i > 0 && i % SAVE_ITERATIONS == 0) {
+        gibbs_state->getMutableTree()->save(model_name + "-checkpoint" + std::to_string(i) + ".txt");
+      }
     }
 
-    gibbs_state->getMutableTree()->save("model.txt");
+    gibbs_state->getMutableTree()->save(model_name + ".txt");
     delete gibbs_state;
   } else {
     cout << "Arguments: "
