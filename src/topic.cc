@@ -83,6 +83,7 @@ void Topic::operator =(const Topic& from) {
 }
 
 void Topic::updateWordCount(int word_id, int update) {
+  // Slow function due to the log and gsl_sf_lngamma calls - can some be replaced?
   // Find the word counts for the word with word_id, and update the counts.
   word_counts_[word_id] += update;
   topic_word_no_ += update;

@@ -134,6 +134,7 @@ void Document::initLevelCounts(int depth) {
 }
 
 void Document::computeLogPrLevel(double gem_mean, double gem_scale, int depth) {
+  // Slow function due to all the log operations - can some be replaced?
   int sum_level_counts = getSumLevelCounts(depth);
   double sum_log_pr = 0.0;
   double last_section = 0.0;
@@ -390,6 +391,7 @@ double DocumentTopicUtils::LogGammaRatio(
       int level,
       double eta,
       int term_no) {
+  // Slow function due to the gsl_sf_lngamma calls - can some be replaced?
   vector<int> count(term_no, 0);
   double result = 0.0;
 
