@@ -25,7 +25,7 @@
 #define DEFAULT_SHUFFLE_LAG 100
 #define DEFAULT_LEVEL_LAG -1
 #define DEFAULT_SAMPLE_GAM 0
-#define BUF_SIZE 1000
+#define BUF_SIZE 2000
 
 namespace hlda {
 
@@ -324,7 +324,7 @@ void GibbsSampler::IterateGibbsState(GibbsState* gibbs_state, bool verbose) {
   // Compute the Gibbs score with the new parameter values.
   double gibbs_score = gibbs_state->computeGibbsScore();
 
-  if (verbose) cout << "Gibbs score at iteration "
+  if (verbose)                   cout << "Gibbs score at iteration "
        << gibbs_state->getIteration() << " = " << gibbs_score << endl;
 }
 

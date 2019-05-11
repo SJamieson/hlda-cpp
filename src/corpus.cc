@@ -90,17 +90,26 @@ void CorpusUtils::ReadCorpus(
     while (s_line.getline(buf, BUF_SIZE, ' ')) {
       if (word_count_pos == 0) {
         words = atoi(buf);
+        if (words == 0) {
+            throw std::runtime_error("Cannot have zero words in document");
+        }
       } else {
-        int word_id, word_count;
+        int word_id, word_count, level;
         istringstream s_word_count(buf);
+//        std::string const tmp = s_word_count.str();
         std::string str;
         getline(s_word_count, str, ':');
         word_id = atoi(str.c_str());
         getline(s_word_count, str, ':');
         word_count = atoi(str.c_str());
         total_word_count += word_count;
-        getline(s_word_count, str, ':'); // level
-        document.addWord(word_id, word_count, (str.empty()) ? -1 : atoi(str.c_str()));
+        if (s_word_count.eof()) {
+            level = -1;
+        } else {
+            getline(s_word_count, str, ':'); // level
+            level = atoi(str.c_str());
+        }
+        document.addWord(word_id, word_count, level);
         if (word_id >= word_no) {
           word_no = word_id + 1;
         }

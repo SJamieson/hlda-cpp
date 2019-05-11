@@ -22,6 +22,7 @@ using hlda::GibbsState;
 
 #define MAX_ITERATIONS 10000
 #define SAVE_ITERATIONS (MAX_ITERATIONS >> 2)
+#define SCORE_ITERATIONS 10
 
 int main(int argc, char** argv) {
   if (argc == 3) {
@@ -40,6 +41,9 @@ int main(int argc, char** argv) {
       hlda::GibbsSampler::IterateGibbsState(gibbs_state);
       if (i > 0 && i % SAVE_ITERATIONS == 0) {
         gibbs_state->getMutableTree()->save(model_name + "-checkpoint" + std::to_string(i) + ".txt");
+      }
+      if (i > 0 && i % SCORE_ITERATIONS == 0) {
+          std::cout << std::string("Gibbs score: ") << std::to_string(gibbs_state->getScore()) << std::endl;
       }
     }
 
